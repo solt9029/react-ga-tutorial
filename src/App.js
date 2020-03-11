@@ -1,11 +1,17 @@
 import React from 'react';
-import { Switch, Route, Link } from 'react-router-dom';
+import ReactGA from 'react-ga';
+import { Switch, Route, Link, withRouter } from 'react-router-dom';
 import IndexPage from './IndexPage';
 import HelloPage from './HelloPage';
 import NotFoundPage from './NotFoundPage';
 
-export default class App extends React.Component {
-  componentDidMount() {}
+class App extends React.Component {
+  componentDidMount() {
+    const { pathname } = this.props.location;
+    ReactGA.set({ page: pathname });
+    ReactGA.pageview(pathname);
+    console.log({ pathname });
+  }
 
   render() {
     return (
@@ -23,3 +29,5 @@ export default class App extends React.Component {
     );
   }
 }
+
+export default withRouter(App);
